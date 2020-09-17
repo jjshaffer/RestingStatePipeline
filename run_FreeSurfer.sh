@@ -22,7 +22,7 @@ echo "T2:" $scan2
 export SUBJECTS_DIR=$outdir
 #echo $SUBJECTS_DIR
 
-
+#Check whether there is a T2 image. If not, run Freesurfer without T2 image
 if [[ ${scan2} = "None" ]]; then
 	recon-all -all -subject sub-${subj}_ses-${session1} -i $scan1
 	#echo "not 3T1"
@@ -36,6 +36,7 @@ if [[ ${scan2} = "None" ]]; then
 	3dcalc -a aparc+aseg.nii -datum byte -prefix sub-${subj}_ses-${session1}_WM.nii \
               -expr 'amongst(a,2,7,41,46,251,252,253,254,255)'
 
+#Check whether this is the T1 for 31P imaging. If so, run Freesurfer without T2 image and name output differently
 elif [[ ${scan2} = "31P" ]]; then
     #subject=sub-${subj}_ses-${session1}_31P
     #echo $subject
@@ -50,6 +51,7 @@ elif [[ ${scan2} = "31P" ]]; then
 	3dcalc -a aparc+aseg.nii -datum byte -prefix sub-${subj}_ses-${session1}_31P_WM.nii \
               -expr 'amongst(a,2,7,41,46,251,252,253,254,255)'
 
+#Otherwise run Freesurfer with the T1 and T2 image
 else
 	recon-all -all -subject sub-${subj}_ses-${session1} -i $scan1 -T2 $scan2 -T2pial
 	#echo "not 3T"
