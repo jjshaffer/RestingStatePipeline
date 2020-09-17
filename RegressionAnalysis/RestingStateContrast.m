@@ -1,3 +1,7 @@
+#Function for performing resting-state regression analysis. 
+#Author: Joe Shaffer
+#Date: June 2017
+
 function x = batchRestingStateContrast(covarFile, BOLDFile, prefix, nullModel, model, expVariable)
  
 %Load Covariate file into matrix
