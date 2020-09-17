@@ -18,12 +18,12 @@ function x = testVoxel(dataTab, model1)
         disp(msgText);
     end
     
-    #If Model fitting succeeds, return the model
+    %If Model fitting succeeds, return the model
     if (test==0)
         x = lme;
         %filename = strcat(int2str(i), '_', int2str(j), '_', int2str(k), '_LME', int2str(n), '.mat');
         %save(filename, 'lme', '-v7.3');
-    #If model fitting fails, return null
+    %If model fitting fails, return null
     else
          x = [];
     end
