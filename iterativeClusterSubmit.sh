@@ -36,12 +36,13 @@
 
 #module load matlab/R2015a
 
-cd /Shared/MRRCdata/Bipolar_R01/scripts/RestingStatePipeline
+#Set these variables for the appropriate project
+PROJECT_PATH="/Shared/MRRCdata/Bipolar_R01"
+DATA_DIRNAME="BD_R01_data"
 
+cd ${PROJECT_PATH}/scripts/RestingStatePipeline
 
-#matlab -nodesktop -nosplash -r "SuicideAnalysis9($SGE_TASK_ID);quit;"
-
-bash readBIDS_forFreesurfer.sh $SGE_TASK_ID
+bash readBIDS_forFreesurfer.sh ${SGE_TASK_ID} ${PROJECT_PATH} ${DATA_DIRNAME}
 
 
 
