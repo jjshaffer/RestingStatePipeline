@@ -2,7 +2,7 @@
 
 #Set the name of the job. This will be the first part of the error/output filename.
 
-#$ -N BD_fALFF
+#$ -N RestingStatePipeline
 
 #Set the shell that should be used to run the job.
 #$ -S /bin/bash
@@ -11,10 +11,10 @@
 #(Will show up as .e and .o files)
 #$ -cwd
 
-#Select the queue to run in
+#Select the queue to run in on Argon
 #$ -q PINC
 
-#Select the number of slots the job will use
+#Select the number of slots the job will use - this script tends to require >1 core to accommodate some high-ram requirements in FreeSurfer
 #$ -pe smp 2 
 
 #Print informationn from the job into the output file
