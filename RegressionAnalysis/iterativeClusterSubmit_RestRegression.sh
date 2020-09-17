@@ -2,7 +2,7 @@
 
 #Set the name of the job. This will be the first part of the error/output filename.
 
-#$ -N BD_fALFF
+#$ -N Rest_Regression
 
 #Set the shell that should be used to run the job.
 #$ -S /bin/bash
@@ -27,7 +27,7 @@
 #$ -m n
 
 #E-mail address to send to
-#$ -M joseph-shaffer@uiowa.edu
+#$ -M emailAddress@uiowa.edu
 
 #Run as Array Job
 #$ -t 1:1:1
@@ -36,12 +36,19 @@
 
 module load matlab/2018a
 
-cd /Shared/MRRCdata/Bipolar_R01/scripts/RestingStatePipeline/AALRegressionAnalysis
+#Set variables depending on research study
+PROJECT_PATH="/Shared/MRRCdata/Bipolar_R01"
+CovarFile='BD_TMS_SessionList-28-Jul-2020.txt'
+DataFile='BD_AAL_Data-28-Jul-2020.mat'
+OutPrefix='BDvHC'
+NullModel='BOLD~Age+Male+(1|SUBJID)'
+ExpModel='BOLD~BD+Age+Male+(1|SUBJID)'
+ExpVar='BD'
 
+cd ${PROJECT_PATH}/scripts/RestingStatePipeline/RegressionAnalysis
 
-matlab -nodesktop -nosplash -r "RestingStateAnalysis();quit;"
+matlab -nodesktop -nosplash -r "RestingStateContrast(${CovarFile}, ${DataFile}, ${OutPrefix}, ${NullModel}, ${ExpModel}, ${ExpVar});quit;"
 
-#bash readBIDS_forFreesurfer.sh $SGE_TASK_ID
 
 
 
