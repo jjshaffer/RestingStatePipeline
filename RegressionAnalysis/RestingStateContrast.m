@@ -83,6 +83,8 @@ for j = 1:ydim
     end %k loop
 end %j loop
    
-   x = generateOutput(stats, prefix);
+   %Save Output  
+   filename = strcat(prefix,'_results.mat');
+   save(filename, 'stats', '-v7.3');
  
 end %Function
