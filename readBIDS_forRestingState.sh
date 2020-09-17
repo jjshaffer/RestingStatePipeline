@@ -180,11 +180,11 @@ if [[ $subject != "sourcedata" ]]; then
                 #echo $file
 
                 #Use pu reconstruction if available
-                if [[ $file == *"pu_bold.nii.gz" ]];
+                if [[ $file == *"task-rest"*"pu_bold.nii.gz" ]];
                 then
                     #echo ${file}_test
                     funcfile=$filepath
-                elif [[ $file == *"bold.nii.gz" ]];
+                elif [[ $file == *"task-rest"*"bold.nii.gz" ]];
                 then
                     #echo ${file}_bad
                     if [[ $funcfile == "" ]];
