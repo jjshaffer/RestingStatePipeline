@@ -1,6 +1,6 @@
 #!/usr/bin/env tcsh
 
-#This script will run preprocessing using AFNI. It uses the NIFTI formatted images along with the output of FreeSurfer
+#This script will run Resting State preprocessing using AFNI. It uses the NIFTI formatted images along with the output of FreeSurfer
 #Author: Joe Shaffer
 #Date: March, 2017
 # created by uber_subject.py: version 0.37 (April 14, 2015)
