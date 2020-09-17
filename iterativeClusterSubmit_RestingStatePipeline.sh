@@ -39,10 +39,14 @@
 #Set these variables for the appropriate project
 PROJECT_PATH="/Shared/MRRCdata/Bipolar_R01"
 DATA_DIRNAME="BD_R01_data"
+atlasfile=./aal_MNI_V4_convert+tlrc
+#atlasfile=./mergedFunctionalAtlas.nii.gz
+atlas_name="AAL"
+#atlas_name="FUNCATLAS"
 
 cd ${PROJECT_PATH}/scripts/RestingStatePipeline
 
-bash readBIDS_forFreesurfer.sh ${SGE_TASK_ID} ${PROJECT_PATH} ${DATA_DIRNAME}
+bash readBIDS_forFreesurfer.sh ${SGE_TASK_ID} ${PROJECT_PATH} ${DATA_DIRNAME} ${atlasfile} ${atlas_name}
 
 
 
