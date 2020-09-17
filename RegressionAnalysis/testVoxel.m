@@ -1,3 +1,6 @@
+%Function for performing mixed effects modeling and performing error-handling that allows RestingStateContrast.m to test whether the model converged
+%Author: Joe Shaffer
+%Date: June 2017
 function x = testVoxel(dataTab, model1)
 
     warning('off', 'all');
