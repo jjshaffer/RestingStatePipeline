@@ -8,18 +8,14 @@ rootdir=$1
 subject=$2
 session=$3
 atlasfile=$4
-out_dir=$5
+atlas_name=$5
 
 resultdir=${rootdir}/derivatives/AFNI_Rest/${subject}_${session}.results
 infile=${resultdir}/errts.${subject}_${session}.fanaticor+tlrc
 
-#atlasfile=./aal_MNI_V4_convert+tlrc
-#atlasfile=./mergedFunctionalAtlas.nii.gz
-
-#echo ${atlasfile}
-
-mkdir -p ${rootdir}/derivatives/${out_dir}
-outdir=${rootdir}/derivatives/${out_dir}/sub-${subject}_ses-${session}
+#Create the necessary output paths
+mkdir -p ${rootdir}/derivatives/${atlas_name}_RESULTS
+outdir=${rootdir}/derivatives/${atlas_name}_RESULTS/sub-${subject}_ses-${session}
 mkdir -p $outdir
 outfile=${outdir}/resampled_errts.sub-${subject}_ses-${session}.fanaticor
 
