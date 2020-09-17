@@ -8,6 +8,8 @@
 i="$1"
 SHARE_DIR="$2" #Root of the 
 DATA_DIRNAME="$3"
+atlasfile="$4"
+atlas_name="$5"
 
 #Cluster Path
 #SHARE_DIR=/Shared/MRRCdata/Bipolar_R01
@@ -203,7 +205,7 @@ if [[ $subject != "sourcedata" ]]; then
             tcsh run_afni_proc_rest.sh ${SHARE_DIR} ${DATA_DIRNAME} ${subject} ${ses[$j]} $funcfile
 
             ##Resample Resting State to MNI Atlas and generate correlation matrices
-            bash create_correlations.sh ${SHARE_DIR} ${subject} ${ses[$j]}
+            bash create_correlations.sh ${SHARE_DIR} ${subject} ${ses[$j]} ${atlasfile} ${atlas_name}
 
         fi #3T
     done #session
