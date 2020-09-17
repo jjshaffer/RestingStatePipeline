@@ -29,7 +29,7 @@
 #E-mail address to send to
 #$ -M joseph-shaffer@uiowa.edu
 
-#Run as Array Job
+#Run as Array Job - set to match # of participants (may need to add an extra for sourcedata folder if using Xnat_downloader script)
 #$ -t 85:91:1
 
 #Do Stuff
