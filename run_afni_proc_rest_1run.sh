@@ -11,8 +11,8 @@ set datadir=$2
 set subject=$3
 set session=$4
 set epi_file1=$5
-set epi_file2=$6
-set epi_file3=$7
+#set epi_file2=$6
+#set epi_file3=$7
 
 
 set currdir=`pwd`
@@ -62,7 +62,7 @@ cd ${rootdir}/derivatives/AFNI_Rest
        -anat_follower_ROI aeseg epi  $anat_dir/aparc.a2009s+aseg.nii   \
 	-anat_follower_ROI FSvent epi $anat_dir/sub-${subject}_ses-${session}_vent.nii     \
         -anat_follower_ROI FSWe epi $anat_dir/sub-${subject}_ses-${session}_WM.nii         \
--dsets ${epi_dir}/${epi_file1} ${epi_dir}/${epi_file2} ${epi_dir}/${epi_file3} \
+-dsets ${epi_dir}/${epi_file1} \
 	    -tcat_remove_first_trs 0                                   \
         -tlrc_base MNI_avg152T1+tlrc                               \
         -tlrc_NL_warp                                              \
