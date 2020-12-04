@@ -10,7 +10,9 @@ set rootdir=$1
 set datadir=$2
 set subject=$3
 set session=$4
-set epi_file=$5
+set epi_file1=$5
+set epi_file2=$6
+set epi_file3=$7
 
 
 set currdir=`pwd`
@@ -21,13 +23,15 @@ echo "Session: "$session
 
 
 # set data directories
-set epi_dir   = ${rootdir}/${datadir}/sub-${subject}/ses-${session}/func
-set anat_dir  = ${rootdir}/derivatives/FreeSurfer/sub-${subject}_ses-${session}/SUMA
+set epi_dir=${rootdir}/${datadir}/sub-${subject}/ses-${session}/func
+set anat_dir=${rootdir}/derivatives/FreeSurfer/sub-${subject}_ses-${session}/SUMA
 #set epi_dir   = ${top_dir}
 
+
+
 # set subject and group identifiers
-set subj      = sub-${subject}_ses-${session}
-set group_id  = bd
+set subj=sub-${subject}_ses-${session}
+set group_id=bd
 
 mkdir -p ${rootdir}/derivatives/AFNI_Rest
 cd ${rootdir}/derivatives/AFNI_Rest
@@ -36,29 +40,29 @@ cd ${rootdir}/derivatives/AFNI_Rest
 #Check to see whether functional images exist
 #set epi_file=${epi_dir}/${subject}_${session}_task-rest_rec-pu_bold.nii.gz
 
-if ( -f $epi_file ) then
-set tmp="x"
+#if ( -f $epi_file1 ) then
+#set tmp="x"
 
 #else
 #set epi_file=${epi_dir}/${subject}_${session}_task-rest_bold.nii.gz
 #if ( -f $epi_file ) then
 #set tmp="x"
 
-else
-echo "No functional image for $subject_$session"
+#else
+#echo "No functional image for $subject_$session"
 
-endif
+#endif
 #endif
     
 #Generate Script for running analysis
-    afni_proc.py -subj_id ${subject}_${session}                                    \
+    afni_proc.py -subj_id sub-${subject}_ses-${session}                                    \
         -blocks despike tshift align tlrc volreg blur mask regress \
 	-copy_anat $anat_dir/sub-${subject}_ses-${session}_SurfVol.nii                \
 	-anat_follower_ROI aaseg anat $anat_dir/aparc.a2009s+aseg.nii   \
-        -anat_follower_ROI aeseg epi  $anat_dir/aparc.a2009s+aseg.nii   \
+       -anat_follower_ROI aeseg epi  $anat_dir/aparc.a2009s+aseg.nii   \
 	-anat_follower_ROI FSvent epi $anat_dir/sub-${subject}_ses-${session}_vent.nii     \
         -anat_follower_ROI FSWe epi $anat_dir/sub-${subject}_ses-${session}_WM.nii         \
-    	-dsets $epi_file \
+-dsets ${epi_dir}/${epi_file1} ${epi_dir}/${epi_file2} ${epi_dir}/${epi_file3} \
 	    -tcat_remove_first_trs 0                                   \
         -tlrc_base MNI_avg152T1+tlrc                               \
         -tlrc_NL_warp                                              \
@@ -77,6 +81,6 @@ endif
         -regress_run_clustsim no
 
 #Run Analysis
-tcsh proc.${subject}_${session}
+tcsh proc.sub-${subject}_ses-${session}
 
 cd $currdir

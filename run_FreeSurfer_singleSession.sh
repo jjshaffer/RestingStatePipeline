@@ -27,10 +27,10 @@ echo "T2:" $scan2
 T1=$dir/sub-${subj}/ses-${session1}/anat/${scan1}.nii.gz
 T2=$dir/sub-${subj}/ses-${session2}/anat/${scan2}.nii.gz
 
-T1a=$dir/sub-${subj}/ses-${session1}/anat/${scan1}.nii.gz
-T1b=$dir/sub-${subj}/ses-${session2}/anat/${scan1}.aligned.nii.gz
-T2a=$dir/sub-${subj}/ses-${session1}/anat/${scan2}.aligned.nii.gz
-T2b=$dir/sub-${subj}/ses-${session2}/anat/${scan2}.nii.gz
+#T1a=$dir/sub-${subj}/ses-${session1}/anat/${scan1}.nii.gz
+#T1b=$dir/sub-${subj}/ses-${session2}/anat/${scan1}.aligned.nii.gz
+#T2a=$dir/sub-${subj}/ses-${session1}/anat/${scan2}.aligned.nii.gz
+#T2b=$dir/sub-${subj}/ses-${session2}/anat/${scan2}.nii.gz
 
 
 
@@ -39,14 +39,21 @@ T2b=$dir/sub-${subj}/ses-${session2}/anat/${scan2}.nii.gz
 #echo $T1b
 #echo $T2b
 
-3dAllineate -base $T1 -input $T2 -prefix $T2a -1Dmatrix_save $dir/sub-${subj}/ses-${session1}/anat/ses2to1transform
-3dAllineate -base $T2 -input $T1 -prefix $T1b -1Dmatrix_save $dir/sub-${subj}/ses-${session2}/anat/ses1to2transform
+#3dAllineate -base $T1 -input $T2 -prefix $T2a -1Dmatrix_save $dir/sub-${subj}/ses-${session1}/anat/ses2to1transform
+#3dAllineate -base $T2 -input $T1 -prefix $T1b -1Dmatrix_save $dir/sub-${subj}/ses-${session2}/anat/ses1to2transform
 
 export SUBJECTS_DIR=$outdir
 echo $SUBJECTS_DIR
 
-recon-all -all -subject sub-${subj}_ses-${session1} -i $T1a -T2 $T2a -T2pial
-recon-all -all -subject sub-${subj}_ses-${session2} -i $T1b -T2 $T2b -T2pial
+if [[ $scan2 == 'y' ]]
+then
+    echo "No T2"
+    recon-all -all -subject sub-${subj}_ses-${session1} -i $T1
+
+else
+    echo "Run with T2"
+    recon-all -all -subject sub-${subj}_ses-${session1} -i $T1 -T2 $T2 -T2pial
+fi
 
 cd $SUBJECTS_DIR/sub-${subj}_ses-${session1}
 @SUMA_Make_Spec_FS -sid sub-${subj}_ses-${session1} -NIFTI
@@ -58,11 +65,11 @@ cd $SUBJECTS_DIR/sub-${subj}_ses-${session1}/SUMA
               -expr 'amongst(a,2,7,41,46,251,252,253,254,255)'
 
 
-cd $SUBJECTS_DIR/sub-${subj}_ses-${session2}
-@SUMA_Make_Spec_FS -sid sub-${subj}_ses-${session2} -NIFTI
+#cd $SUBJECTS_DIR/sub-${subj}_ses-${session2}
+#@SUMA_Make_Spec_FS -sid sub-${subj}_ses-${session2} -NIFTI
 
-cd $SUBJECTS_DIR/sub-${subj}_ses-${session2}/SUMA
-3dcalc -a aparc+aseg.nii -datum byte -prefix sub-${subj}_ses-${session2}_vent.nii \
--expr 'amongst(a,4,43)'
-3dcalc -a aparc+aseg.nii -datum byte -prefix sub-${subj}_ses-${session2}_WM.nii \
--expr 'amongst(a,2,7,41,46,251,252,253,254,255)'
+#cd $SUBJECTS_DIR/sub-${subj}_ses-${session2}/SUMA
+#3dcalc -a aparc+aseg.nii -datum byte -prefix sub-${subj}_ses-${session2}_vent.nii \
+#-expr 'amongst(a,4,43)'
+#3dcalc -a aparc+aseg.nii -datum byte -prefix sub-${subj}_ses-${session2}_WM.nii \
+#-expr 'amongst(a,2,7,41,46,251,252,253,254,255)'
