@@ -1,0 +1,21 @@
+function out = makeDifferenceMatrices()
+
+SUBJECTS = {'CMB0001'; 'CMB0011'; 'CMB0021'; 'CMB0031'};
+TYPES = {'pre'; 'post'}
+
+[a,b] = size(SUBJECTS);
+[c,d] = size(TYPES)
+
+for i = 1:a
+    for j = 1:c
+    prefix = strcat(TYPES(j), '_', SUBJECTS(i));
+    filename = strcat(prefix, '.mat');
+    prefix = char(prefix);
+    filename = char(filename);
+    
+    data = load(filename);   
+    out = makeAALMatrix(data.matrix, prefix, -1, 1);    
+    end
+end
+
+end
