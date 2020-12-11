@@ -103,7 +103,7 @@ outname = strcat(DATA_DIR, Outprefix,'_SessionList-', date, '.xls');
 
 disp(outname);
 
-T = array2table(SCANS, 'VariableNames', {'Subject', 'Session'});
+T = array2table(SCANS, 'VariableNames', {'Subject', 'SessionID'});
 writetable(T, outname);
 
 x = matrix;
